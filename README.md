@@ -11,8 +11,8 @@
 - pyramid-front-cashier material works perfectly with Angular Material and Nebular. Take the best from both!
 
 
-# Admin template based on Angular 10+ and <a href="https://github.com/akveo/nebular">Nebular</a>
-<a target="_blank" href="https://akveo.com/pyramid-front-cashier/pages/dashboard?theme=corporate&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=hero_banner_corporate"><img src="https://i.imgur.com/mFdqvgG.png"/></a>
+# Cashier Client based on Angular 14+ and <a href="https://github.com/akveo/nebular">Nebular</a>
+<a target="_blank" href=""><img src="https://i.imgur.com/mFdqvgG.png"/></a>
 
 ### Backend Integration Bundles
 
