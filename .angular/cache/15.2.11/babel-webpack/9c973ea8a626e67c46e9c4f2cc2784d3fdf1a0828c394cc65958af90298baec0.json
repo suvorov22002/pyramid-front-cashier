@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from './header/header.component';\nexport * from './footer/footer.component';\nexport * from './search-input/search-input.component';\nexport * from './switcher/switcher.component';\nexport * from './layout-direction-switcher/layout-direction-switcher.component';","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
