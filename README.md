@@ -12,7 +12,7 @@
 
 
 # Cashier Client based on Angular 14+ and <a href="https://github.com/akveo/nebular">Nebular</a>
-<a target="_blank" href=""><img src="https://i.imgur.com/mFdqvgG.png"/></a>
+<a target="_blank" href=""><img src="https://store-images.s-microsoft.com/image/apps.47782.13574180250990125.6f8d0176-f70f-4727-ada4-c71b7cff6d12.2ba0bf57-cdee-4e66-9406-4221fdb25935"/></a>
 
 ### Backend Integration Bundles
 
