@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxPrintModule } from 'ngx-print';
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -12,6 +13,13 @@ import {
   NbSelectModule,
   NbIconModule,
   NbThemeModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbDatepickerModule,
+  NbDialogModule,
+  NbInputModule,
+  NbRadioModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -39,6 +47,12 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import { CheckinComponent } from './components/checkin/checkin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaymentComponent } from './components/payment/payment.component';
+import { ShiftComponent } from './components/shift/shift.component';
+import { MaterialModule } from './shared/material.module';
+import { DialogShiftComponent } from './components/shift/dialog-shift/dialog-shift.component';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -53,6 +67,19 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  NbDialogModule,
+  NbCardModule,
+  NbSpinnerModule,
+  NbInputModule,
+  NbActionsModule,
+  NbCheckboxModule,
+  NbRadioModule,
+  NbDatepickerModule,
+  NbSelectModule,
+  NbIconModule,
+  FormsModule,
+  ReactiveFormsModule,
+  NgxPrintModule
 ];
 const COMPONENTS = [
   SwitcherComponent,
@@ -63,6 +90,10 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  CheckinComponent, 
+  PaymentComponent, 
+  ShiftComponent,
+  DialogShiftComponent
 ];
 const PIPES = [
   CapitalizePipe,
@@ -73,7 +104,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
+  imports: [CommonModule, MaterialModule, ...NB_MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
 })

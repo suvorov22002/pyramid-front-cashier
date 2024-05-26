@@ -1,0 +1,56 @@
+<nb-card size="">
+    <!-- <nb-card-header>SHIFT INFORMATIONS</nb-card-header> -->
+    <nb-card-body>
+        <div class="row">
+            <div class="button-ma">
+                <button nbButton matRipple status="primary" (click)="openShift()" size="small" status="info"
+                    [style.width.%]="100">
+                    OUVRIR SHIFT
+                </button>
+                <button nbButton matRipple status="primary" (click)="closeShift()" size="small" status="info"
+                    [style.width.%]="100">
+                    FERMER SHIFT
+                </button>
+                <button nbButton matRipple status="info" (click)="printShift()" size="small" status="success"
+                    [style.width.%]="100" [disabled]="'false'">
+                    IMPRIMER SHIFT
+                </button>
+                <button nbButton matRipple status="info" (click)="printShift()" size="small" status="warning"
+                    style="margin-right: 0px;" [style.width.%]="100" [disabled]="'false'">
+                    SE DECONNECTER
+                </button>
+            </div>
+        </div>
+        <div class="row mat-elevation-z8  center" style="margin-top: 2em;">
+
+
+            <div class="col-sm-6" style="background-color: rgb(203, 217, 233);text-align: right;" [style.width.%]="100">
+                <p><label>Heure début:</label></p>
+                <p><label>Heure fin:</label></p>
+                <p><label>Balance au debut:</label></p>
+                <p><label>Balance Fin:</label></p>
+                <p><label>Tickets Total:</label></p>
+                <p><label>Tickets de paye:</label></p>
+                <p><label>Tickets Revoqués:</label></p>
+                <p><label>Total Payin:</label></p>
+                <p><label>Total Payout:</label></p>
+                <p><label>Total Revoqués:</label></p>
+                <p><label style="font-weight: bold;">Balance:</label></p>
+            </div>
+            <div class="col-sm-6" style="background-color: rgb(203, 217, 233);text-align: left;" [style.width.%]="100">
+                <p><label><span>{{shift.startDate | date}}</span></label></p>
+                <p><label><span>{{shift.endDate | date}}</span></label></p>
+                <p><label><span>{{shift.startBalance}}</span>&nbsp;CFA</label></p>
+                <p><label><span>{{shift.endBalance}}</span>&nbsp;CFA</label></p>
+                <p><label><span>{{shift.totalSlip}}</span></label></p>
+                <p><label><span>{{shift.paidSlip}}</span></label></p>
+                <p><label><span>{{shift.revoqSlip}}</span></label></p>
+                <p><label><span>{{shift.totalPayin}}</span></label></p>
+                <p><label><span>{{shift.totalPayout}}</span></label></p>
+                <p><label><span>{{shift.totalRevoq}}</span></label></p>
+                <p><label><span style="font-weight: bold;">{{shift.totalBalance}}</span></label></p>
+            </div>
+        </div>
+        <!-- </div> -->
+    </nb-card-body>
+</nb-card>
