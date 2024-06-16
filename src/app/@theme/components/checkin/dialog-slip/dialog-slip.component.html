@@ -1,0 +1,91 @@
+<div class="modal-content modal-printer">
+    <div id="print-section">
+        <div class="modal-header-bk barcodeh">
+            <img src="/assets/images/logo.jpeg" alt="pyramid-game" width="250" height="50"><br>
+            <span style="margin:0 10 0 10; display:table;">{{data.barcode}}</span>
+        </div>
+        <div class="modal-body" style="width:inherit;margin:0px;">
+            <table class="slip-table">
+                <tr>
+                    <td colspan="2"><label>[1/{{data.multipleRound}}]&nbsp;{{data.multipleRound == 1 ? 'simple' :
+                            'multiple'}}</label></td>
+                    <td><label>Sel Cote</label></td>
+                </tr>
+                <tr>
+                    <td><label>Coupon&nbsp;{{data.codeGame}}</label></td>
+                    <td><label>{{data.codePari}}</label></td>
+                    <td><label>{{data.odds}}</label></td>
+                </tr>
+                <tr *ngFor="let dat of allRounds">
+                    <td><label>{{dat.fecha |date:'dd/MM/yyyy HH:mm'}}</label><br><label>{{dat.event}}</label></td>
+
+                    <td style="font-weight:bold;text-align:center;" colspan="2">
+                        <label>{{dat.choice}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;" colspan="3">-----------------------------</td>
+                </tr>
+                <tr>
+                    <td><label>Code Bonus:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.codeBonus}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Total mise:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.montantMise | number: '2.'}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Gain Maximum:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.montantGainMax | number: '2.'}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Gain Minimum:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.montantGainMin | number: '2.'}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Combinaison:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.multipleRound}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Boutique:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.salle}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Caissier:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.cashierLogin}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Multiplicateur:</label></td>
+                    <td style="font-weight:bold;" colspan="2"><label>{{data.coefficient === 0 ? 'Non' : 'Oui'}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;word-break: break-word;font-size: xx-small;" colspan="3"><label>Ce ticket
+                            est valable 07
+                            jours, à compter du jour du dernier evènement.<span
+                                style="font-weight:bold;text-transform:capitalize;">{{data.codePartner}}</span> vous
+                            remercie pour votre fidelité.</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center;">
+            <ngx-barcode [bc-element-type]="elementType" [bc-value]="data.barcode" [bc-format]="format"
+                [bc-line-color]="lineColor" [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue"
+                [bc-font-options]="fontOptions" [bc-font]="font" [bc-text-align]="textAlign"
+                [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize"
+                [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
+                [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft"
+                [bc-margin-right]="marginRight">
+            </ngx-barcode>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button nbButton matRipple (click)="close()">Close</button>
+        <button nbButton matRipple printSectionId="print-section" [previewOnly]="false" ngxPrint>
+            Imprimer
+        </button>
+    </div>
+
+</div>

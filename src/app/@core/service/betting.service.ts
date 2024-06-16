@@ -1,39 +1,25 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BetKeno, BettingKenoData } from "../data/betKeno";
-import { of as observableOf, Observable } from "rxjs";
-import { betKeno_A, betKeno_G, betKeno_N, betKeno_P } from "../mock/betkeno-data";
-
+import { environment } from "environments/environment";
+import { Observable } from "rxjs";
+import { Bet } from "../data";
 
 @Injectable({
     providedIn: 'root'
 })
-export class BettingService extends BettingKenoData {
+export class BettingService  {
+
+    private namespace: String = "api/v1/payments"
+    private API_URL: string = environment.apiUrl;
     
-    private allMockBets: BetKeno[] = [];
+    constructor(private httpClient: HttpClient) {}
 
-    constructor() {
-        super();
-        this.allMockBets.push(betKeno_G);
-        this.allMockBets.push(betKeno_P);
-        this.allMockBets.push(betKeno_N);
-        this.allMockBets.push(betKeno_A);
-    }
-    
-    createKenoBet(keno: BetKeno): Observable<BetKeno> {
-        throw new Error("Method not implemented.");
+    listEventOdds(codeGame: string): Observable<any[]> {
+        return this.httpClient.get<any[]>(`${this.API_URL}/${this.namespace}/events/odds/${codeGame}`);
     }
 
-    checkKenoBet(barcode: string): Observable<BetKeno> {
-        var data = this.allMockBets.find(b => b.barcode === barcode);
-        return observableOf(data);
-    }
-
-    listAllBetPartner(partner: string): Observable<BetKeno[]> {
-        throw new Error("Method not implemented.");
-    }
-
-    listAllBetPartnerRoom(partner: string, room: string): Observable<BetKeno[]> {
-        throw new Error("Method not implemented.");
+    checkBet(code:string, barcode: string): Observable<Bet> {
+        return this.httpClient.get<Bet>(`${this.API_URL}/${this.namespace}/partner/${code}/barcode/${barcode}`);
     }
 
 }

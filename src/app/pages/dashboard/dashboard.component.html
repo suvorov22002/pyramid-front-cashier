@@ -3,15 +3,23 @@
   <div class="col-sm-12">
     <nb-card size="">
       <nb-tabset fullWidth>
-
+        <!--
         <nb-tab *ngFor="let game of AllGames" tabTitle="{{game}}&nbsp;game">
           <div class="row">
             <div class="col-sm-9"><ngx-checkin></ngx-checkin></div>
             <div class="col-sm-3"><ngx-checkin></ngx-checkin></div>
           </div>
         </nb-tab>
+        -->
 
-        <nb-tab tabTitle="Paiement">
+        <nb-tab tabTitle="Keno" [disabled]="!(canBetKeno && connected)">
+          <div class="row">
+            <div class="col-sm-12"><ngx-keno></ngx-keno></div>
+            <!--<div class="col-sm-3"><ngx-checkin></ngx-checkin></div>-->
+          </div>
+        </nb-tab>
+
+        <nb-tab tabTitle="Paiement" [disabled]="!connected">
           <ngx-payment></ngx-payment>
         </nb-tab>
 
@@ -22,43 +30,4 @@
       </nb-tabset>
     </nb-card>
   </div>
-  <!--
-  <div class="col-sm-3">
-    <nb-card size="large">
-      <nb-card-header>CHECK BILLS INFORMATIONS</nb-card-header>
-      <nb-card-body>
-        <form [formGroup]="firstForm">
-          <div class="form-group">
-            <label for="amount" class="label">APPORT(Montant Mise)</label>
-            <input type="number" nbInput fullWidth id="amount" placeholder="Montant" formControlName="amount"
-              status="info">
-          </div>
-          <div class="form-group">
-            <label class="label">MULTIPLICATEUR</label>
-            <nb-radio-group [(value)]="radioGroupValue" formControlName="coefficient">
-              <nb-radio [value]="'No'">
-                NO
-              </nb-radio>
-              <nb-radio [value]="'Yes'">
-                YES
-              </nb-radio>
-            </nb-radio-group>
-          </div>
-          <div class="form-group">
-            <button nbButton matRipple status="primary" type="submit" (click)="onSubmitBet()" size="large" status="info" [style.width.%]="100"
-              [disabled]="validateSubmit()">
-              IMPRIMER
-            </button>
-          </div>
-          <div class="form-group">
-            <button nbButton matRipple type="submit" (click)="onCancelBet()" size="large" status="warning" [style.width.%]="100"
-              [disabled]="validateSubmit()">
-              ANNULER
-            </button>
-          </div>
-        </form>
-      </nb-card-body>
-    </nb-card>
-  </div>
--->
 </div>

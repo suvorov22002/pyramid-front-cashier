@@ -9,42 +9,43 @@ export interface RequestResponse<T> {
 export interface Bet {
     id?: number | null;
     codeGame: string;
-    barcode: string;
+    barcode?: string;
     codePartner: string;
     salle: string;
     cashierLogin: string;
     numeroTirage: number;
     status: Statut;
-    codeBonus: number;
-    numeroTicket: number;
+    codeBonus?: number;
+    numeroTicket?: number;
     montantMise: number;
     montantGainMax?: number;
     montantGainMin?: number;
-    odds: number;
-    codePari?: string;
-    selection?: string;
+    odds?: number;
+    codePari: string;
+    selection: string;
     createdAt?: Date;
     slips: Slip[];
     bonusAmount?: number;
+    balance?: number;
 }
 
 export interface Slip {
-    event: number;
-    odd: number;
+    numeroTirage: number;
+    odds: number;
     game: string;
     selection: string;
     resultat: string;
-    prix: number;
+    montantSelection: number;
     coefficient: number;
     status: string;
 }
 
 export enum Statut {
-    TCKGAGNANT = 'Gagnant',
-    TCKPERDANT = 'Perdant',
+    TCKGAGNANT = 'GAGNANT',
+    TCKPERDANT = 'PERDANT',
     Balance = 'Balance insuffisant',
     UPartner = 'Non reconnu',
-    TCKNEVAL = 'Non evalué',
+    TCKNEVAL = 'ATTENTE',
     UNKNOWNCASHIER = 'Caissier non reconnu',
     UNKNOWNDRAW = 'Tirage non reconnu',
     TCKNRECON = 'Ticket non reconnu',
@@ -65,6 +66,9 @@ export interface Shift {
     startBalance: number;
     endBalance: number;
     endDate: Date;
-    user: string;
+    login: string;
+    partner: string;
 }
+
+
 

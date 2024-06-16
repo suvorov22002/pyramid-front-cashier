@@ -1,0 +1,31 @@
+<div class="row" style="width: 850px;">
+    <div class="col-md-12">
+        <nb-card size="medium">
+
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <!-- Code numero evenement Column -->
+                <ng-container matColumnDef="offre">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Offres </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.code}} </mat-cell>
+                </ng-container>
+
+                <!-- Odd Column -->
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.designation}} </mat-cell>
+                </ng-container>
+
+                <!-- Game Column -->
+                <ng-container matColumnDef="shorcut">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Raccourci </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.cote}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+        </nb-card>
+    </div>
+</div>

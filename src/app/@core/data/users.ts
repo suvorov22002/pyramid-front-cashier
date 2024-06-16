@@ -18,4 +18,6 @@ export abstract class UserData {
   abstract getUsers(): Observable<User[]>;
   abstract getContacts(): Observable<Contacts[]>;
   abstract getRecentUsers(): Observable<RecentUsers[]>;
+  abstract getBalance();
+  abstract setBalance(balance: number);
 }

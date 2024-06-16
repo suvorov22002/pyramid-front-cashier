@@ -1,0 +1,28 @@
+.button-ma {
+    height: fit-content;
+    display: flex;
+
+    >* {
+        margin: 0 0.25rem;
+    }
+}
+
+.space{
+    margin-top: 2em;
+}
+
+.error{
+    color: #f70c0c;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.success{
+    color: #2604fe;
+    font-style: italic;
+    font-size: smaller;
+}
+
+mat-cell {
+    color: blue;
+}

@@ -4,6 +4,7 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 import { UserData } from '../../../@core/data/users';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { GlobalService } from 'app/@core/service/global.service';
 
 @Component({
   selector: 'ngx-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userPictureOnly: boolean = false;
   user: any;
   date: Date;
-  cashier_balance: number = 1000000;
+  cashier_balance: number;
 
   themes = [
     {
@@ -45,11 +46,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private globalService: GlobalService) {
+  }
+
+  get globalBalance(): number {
+    return this.globalService.globalBalance;
+  }
+
+  set globalBalance(value: number) {
+    this.globalService.globalBalance = value;
   }
 
   ngOnInit() {
+
     this.currentTheme = this.themeService.currentTheme;
+    
+    
+    let interBalance = setInterval(() => {
+      this.cashier_balance = this.globalBalance;
+    }, 1000);
 
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))

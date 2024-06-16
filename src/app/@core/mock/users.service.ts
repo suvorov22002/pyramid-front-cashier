@@ -6,6 +6,15 @@ import { Contacts, RecentUsers, UserData } from '../data/users';
 export class UserService extends UserData {
 
   private time: Date = new Date;
+  private cashierBalance: number = 1000000;
+
+  public getBalance() {
+    return this.cashierBalance;
+  }
+
+  public setBalance(balance) {
+    this.cashierBalance = balance;
+  }
 
   private users = {
     nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },
