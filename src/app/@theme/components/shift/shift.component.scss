@@ -1,0 +1,21 @@
+.demo-items {
+    flex: 1 0 33%;
+    background-color: red;
+    ;
+}
+
+.button-ma {
+    height: fit-content;
+    display: flex;
+
+    >* {
+        margin: 0 0.25rem;
+    }
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    /*border: 3px solid #272726;*/
+    padding: 10px;
+}

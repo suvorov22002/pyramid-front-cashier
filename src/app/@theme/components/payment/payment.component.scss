@@ -1,0 +1,69 @@
+.barcode {
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    >* {
+        margin: 0.25rem;
+    }
+}
+
+.box {
+    border-style: groove;
+   
+}
+
+.message{
+    >*{
+        font-weight: bold;
+    }
+   
+}
+
+.button-ma {
+    height: fit-content;
+    display: flex;
+
+    >* {
+        margin: 0 0.25rem;
+    }
+}
+
+nb-card {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+mat-header-cell {
+    font-weight: bold;
+}
+
+.mat-column-coefficient,
+.mat-column-odd,
+.mat-column-game,
+.mat-column-prix {
+    flex: 0 0 8%;
+}
+
+.mat-column-event{
+    flex: 0 0 16%;
+}
+
+.mat-column-selection{
+    flex: 0 0 24%;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.warning {
+    color: orange;
+}
+
+.word {
+    word-wrap: break-word;
+}

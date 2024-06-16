@@ -20,6 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { MaterialModule } from './@theme/shared/material.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MaterialModule,
     AppRoutingModule,
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),

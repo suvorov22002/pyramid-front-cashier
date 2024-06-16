@@ -1,0 +1,151 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-12" style="overflow-x:hidden;">
+        <nb-card [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="warning">
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-sm-4 box">
+                        <div class="row">
+                            <div class="col-sm-6 barcode">
+                                <!--    <label for="barcode" class="label">Code Barre</label> -->
+                                <input type="text" nbInput fullWidth id="barcode" placeholder="Code Barre" #barcode
+                                    status="info" (keyup)="onKeyBarcodeEvent($event)" (keydown.enter)="searchBarcode($event)">
+
+                                <input type="text" nbInput readonly fullWidth id="totalmise" placeholder="Mise Totale" [(ngModel)]="miseTotale"
+                                    status="info" >
+                                <input type="text" nbInput readonly fullWidth id="versement" [(ngModel)]="montantGain"
+                                    placeholder="Montant Versement" status="info">
+                            </div>
+                            <div class="col-sm-6 barcode">
+                                <button nbButton matRipple (click)="onCheckBarcode(barcode.value)" status="info"
+                                    [style.width.%]="100" [disabled]="validateBarcode()">
+                                    <nb-icon class="action-icon" icon='refresh'></nb-icon>RECHERCHER
+                                </button>
+                                <input type="text" nbInput readonly fullWidth id="totalprix" placeholder="Mise Ticket" [(ngModel)]="prixTotal"
+                                    status="info">
+
+                                <button nbButton (click)="onPaiement()" status="info" [style.width.%]="100"
+                                    [disabled]="isVersement">
+                                    VERSEMENT
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin: auto;">
+                            <button nbButton matRipple type="button" (click)="onCancel()" status="warning"
+                                [style.width.%]="100" style="margin-top: 10px;" size="large"
+                                [disabled]="validateBarcode()">
+                                ANNULER
+                            </button>
+                        </div>
+                        <div class="row" style="margin: auto;">
+                            <nb-card size="" [style.width.%]="100">
+                                <nb-card-header>INFORMATIONS TICKET</nb-card-header>
+                                <div class="row" [hidden]="!isChecked">
+                                    <div class="col-sm-4 message">
+                                        <p><label>Message:</label></p>
+                                        <p><label>Montant:</label></p>
+                                        <p [ngStyle]="isBonus ? {'display': 'none'} : {'display': 'block'}"><label>Bonus:</label></p>
+                                        <p><label>Etat:</label></p>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <p><label [ngClass]="getMessageClass()"><span>{{message}}</span></label></p>
+                                        <p><label><span>{{montantGain}}</span>&nbsp;CFA</label></p>
+                                        <p [style.display]="isBonus ? 'none' : 'block'"><label><span>{{bonusAmount}}</span>&nbsp;CFA</label></p>
+                                        <p><label><span style="color:rgb(115, 128, 0);">{{statutVersement}}</span></label></p>
+                                    </div>
+                                </div>
+
+                            </nb-card>
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-2 box">
+                        <nb-card size="">
+                          
+
+                            <label>Message: <span style="color:green;">Ticket Gagnant</span></label>
+                            <label>Montant: <span>5500</span>&nbsp;CFA</label>
+                            <label>Bonus: <span>5500</span>&nbsp;CFA</label>
+                            <label>Etat: <span style="color:rgb(115, 128, 0);">Ticket Deja collecté</span></label>
+
+                        </nb-card>
+                    </div>-->
+                    <div class="col-sm-8 box">
+                        <nb-card size="medium">
+
+                            <mat-table [dataSource]="dataSource" matSort>
+
+                                <!-- Code numero evenement Column -->
+                                <ng-container matColumnDef="event">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> No </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.event}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Odd Column -->
+                                <ng-container matColumnDef="odd">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Cote </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.odd}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Game Column -->
+                                <ng-container matColumnDef="game">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Jeu </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.game}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Selection Column -->
+                                <ng-container matColumnDef="selection">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Selection </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="word"> {{row.selection}} </mat-cell>
+                                </ng-container>
+
+                                 <!-- Resultat Column -->
+                                 <ng-container matColumnDef="resultat">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Resultat </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="word"> {{row.resultat}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Prix Column -->
+                                <ng-container matColumnDef="prix">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Prix </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.prix}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Coefficient Column -->
+                                <ng-container matColumnDef="coefficient">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Coef </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.coefficient}} </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                            <mat-paginator [pageSizeOptions]="[6]"></mat-paginator>
+                        </nb-card>
+                    </div>
+                </div>
+                
+                <div class="row" [hidden]="'true'">
+                    <div class="col-md-12 box">
+                        <nb-card size="">
+                            <nb-card-header>EVENEMENT TICKET</nb-card-header>
+                            <nb-card-body>
+                                <div class="row">
+                                    <div class="col-sm-6 barcode">
+                                        <label for="barcode" class="label">Code Barre</label>
+                                        <input type="number" nbInput fullWidth id="barcode" placeholder="Code Barre"
+                                            status="info">
+                                    </div>
+                                    <div class="col-sm-6 barcode">
+                                        <label for="barcode" class="label">Code Barre</label>
+                                        <input type="number" nbInput fullWidth id="barcode" placeholder="Code Barre"
+                                            status="info">
+                                    </div>
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

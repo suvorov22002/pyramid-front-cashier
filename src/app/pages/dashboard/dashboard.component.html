@@ -1,31 +1,28 @@
 <div class="row">
 
-  <div class="col-sm-9">
-    <nb-card size="large">
+  <div class="col-sm-12">
+    <nb-card size="">
       <nb-tabset fullWidth>
 
         <nb-tab *ngFor="let game of AllGames" tabTitle="{{game}}&nbsp;game">
-          <p>{{game}}</p>
-          <nb-list>
-
-          </nb-list>
+          <div class="row">
+            <div class="col-sm-9"><ngx-checkin></ngx-checkin></div>
+            <div class="col-sm-3"><ngx-checkin></ngx-checkin></div>
+          </div>
         </nb-tab>
 
         <nb-tab tabTitle="Paiement">
-          <p>Paiement</p>
-          <nb-list>
-
-          </nb-list>
+          <ngx-payment></ngx-payment>
         </nb-tab>
 
         <nb-tab tabTitle="Shift">
-          <p>Shift</p>
+          <ngx-shift></ngx-shift>
         </nb-tab>
 
       </nb-tabset>
     </nb-card>
   </div>
-
+  <!--
   <div class="col-sm-3">
     <nb-card size="large">
       <nb-card-header>CHECK BILLS INFORMATIONS</nb-card-header>
@@ -63,5 +60,5 @@
       </nb-card-body>
     </nb-card>
   </div>
-
+-->
 </div>
