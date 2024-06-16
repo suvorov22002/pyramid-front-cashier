@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
+  date: Date;
+  cashier_balance: number = 1000000;
 
   themes = [
     {
@@ -67,6 +69,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+      this.date = new Date();
   }
 
   ngOnDestroy() {
