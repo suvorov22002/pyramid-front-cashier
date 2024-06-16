@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, VERSION, ViewChild } from
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Slip, Statut } from 'app/@core/data';
+import { Bet, Slip, Statut } from 'app/@core/data';
 import { BetKeno } from 'app/@core/data/betKeno';
 import { BettingService } from 'app/@core/service/betting.service';
 
@@ -16,6 +16,8 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   displayedColumns = ['event', 'odd', 'game', 'selection', 'resultat', 'prix', 'coefficient'];
   dataSource: MatTableDataSource<Slip> = new MatTableDataSource();
   isLoading: boolean = false;
+
+  show: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -34,12 +36,20 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
   message: string;
   statutVersement: string;
+  codeGame: string;
 
   constructor(private bettingservice: BettingService) { }
 
 
   ngOnInit(): void {
     var name = 'Angular ' + VERSION.major;
+    console.log("VERSION = " + name);
+
+    setTimeout(() => { // this will make the execution after the above boolean has changed
+      this.barcode.nativeElement.focus();
+    }, 0);
+
+
     //this.dataSource.data = this.allEvents;
   }
 
@@ -49,13 +59,15 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   }
 
   onCheckBarcode(barcode: string) {
-    console.log("Barcode = " + barcode)
+
+    var partner = localStorage.getItem('designation');
     this.isLoading = true;
-    this.bettingservice.checkKenoBet(barcode).subscribe(
-      (res: BetKeno) => {
-        console.log("res", res)
+
+    this.bettingservice.checkBet(partner, barcode).subscribe(
+      (res: Bet) => {
+        console.log("ticket", res)
         if (res !== undefined && res !== null) {
-          setTimeout(() => {
+          //setTimeout(() => {
             this.isLoading = false
             this.isChecked = true;
 
@@ -66,51 +78,55 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
             console.log("STATUS: " + res.status)
 
-            switch(res.status) {
+            switch (res.status) {
 
               case Statut.TCKNRECON:
                 this.message = Statut.TCKNRECON;
                 break;
               case Statut.TCKNEVAL:
-                this.message = Statut.TCKNEVAL;
+                this.message = "Ticket non evalué";
                 this.dataSource.data = res.slips;
                 this.miseTotale = res.montantMise;
-                this.prixTotal = res.slips[0]?.prix;
+                this.prixTotal = res.slips[0]?.montantSelection;
+                this.codeGame = res.codeGame;
                 break;
               case Statut.TCKALRPAID:
-                this.message = Statut.TCKGAGNANT;
+                this.message = "Dejà collecté";
                 this.statutVersement = Statut.TCKALRPAID;
                 this.dataSource.data = res.slips;
                 this.miseTotale = res.montantMise;
-                this.prixTotal = res.slips[0]?.prix;
+                this.prixTotal = res.slips[0]?.montantSelection;
                 this.montantGain = res.montantGainMax;
+                this.codeGame = res.codeGame;
                 this.isVersement = true;
                 break;
               case Statut.TCKGAGNANT:
-                this.message = Statut.TCKGAGNANT;
+                this.message = "Ticket gagnant";
                 //this.statutVersement = Statut.TCKGAGNANT;
                 this.dataSource.data = res.slips;
                 this.miseTotale = res.montantMise;
-                this.prixTotal = res.slips[0]?.prix;
+                this.prixTotal = res.slips[0]?.montantSelection;
                 this.montantGain = res.montantGainMax;
+                this.codeGame = res.codeGame;
                 this.isVersement = false;
                 break;
               case Statut.TCKPERDANT:
-                this.message = Statut.TCKPERDANT;
+                this.message = "Ticket perdant";
                 //this.statutVersement = Statut.TCKPERDANT;
                 this.dataSource.data = res.slips;
                 this.miseTotale = res.montantMise;
-                this.prixTotal = res.slips[0]?.prix;
+                this.prixTotal = res.slips[0]?.montantSelection;
                 this.montantGain = res.montantGainMax;
+                this.codeGame = res.codeGame;
                 this.isVersement = true;
                 break;
               default:
                 this.message = Statut.TCKNRECON;
-          }
-           
+            }
+
             this.isVersement = !((this.statutVersement != Statut.TCKALRPAID && this.montantGain > 0) || this.message === 'PERDANT')
 
-          }, 5000)
+          //}, 5000)
         }
         else {
           this.isLoading = false;
@@ -157,12 +173,12 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     var barcode = event.target.value
     //console.log(barcode);
     //console.log("Event length: " + barcode.length)
-    this.isBarcodeLength = (barcode.length > 17) ? false : true;
+    this.isBarcodeLength = (barcode.length > 12) ? false : true;
   }
 
   searchBarcode(event: any) {
     var barcode = event.target.value
-    this.isBarcodeLength = (barcode.length > 17) ? false : true;
+    this.isBarcodeLength = (barcode.length > 12) ? false : true;
 
     if (this.isBarcodeLength) return;
 
@@ -179,7 +195,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   getClassOf(val) {
     if (val === 'perdant') {
       return 'red';
-    } else if (val === 'gagnant'){
+    } else if (val === 'gagnant') {
       return 'green'
     }
   }

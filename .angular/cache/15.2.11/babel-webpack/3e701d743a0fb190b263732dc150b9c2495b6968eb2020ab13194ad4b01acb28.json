@@ -1,0 +1,1 @@
+{"ast":null,"code":"import * as moment from 'moment';\nexport { AnalyticsService } from './analytics.service';\nexport { SeoService } from './seo.service';\nexport var cashierBalance;\nexport function addMinutesToDate(date, minutes) {\n  return moment(date).add(minutes, 'minutes').toDate();\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

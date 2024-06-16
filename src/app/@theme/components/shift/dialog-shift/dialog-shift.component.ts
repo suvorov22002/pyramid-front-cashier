@@ -13,24 +13,12 @@ export class DialogShiftComponent implements OnInit{
   startDate: Date;
   startBalance: any;
   endBalance: any;
+  data: any;
 
   constructor(protected ref: NbDialogRef<DialogShiftComponent>){}
 
   ngOnInit(): void {
-    this.shift = {
-      totalSlip: 400,
-      paidSlip: 102,
-      revoqSlip: 3,
-      totalPayin: 358650,
-      totalPayout: 323700,
-      totalRevoq: 4000,
-      totalBalance: 15000,
-      startDate: new Date(),
-      endDate: new Date(),
-      startBalance: 1000000,
-      endBalance: 634510,
-      user: "Joselu"
-    }
+    this.shift = this.data;
   }
 
   close(){

@@ -1,11 +1,12 @@
-<nb-card size="medium">
-    <nb-card-header>CHECK BILLS INFORMATIONS</nb-card-header>
+<nb-card size="medium" [nbSpinner]="isLoading" nbSpinnerSize="giant" nbSpinnerStatus="warning">
+    <nb-card-header>INFORMATIONS TICKET</nb-card-header>
     <nb-card-body>
       <form [formGroup]="firstForm">
         <div class="form-group">
+          <p><span id="amount_error" style="color:red;font-style:italic;font-size: small;">{{errorMessage}}</span></p>
           <label for="amount" class="label">APPORT(Montant Mise)</label>
-          <input type="number" nbInput fullWidth id="amount" placeholder="Montant" formControlName="amount"
-            status="info">
+          <input type="number" nbInput fullWidth id="amount" placeholder="Montant" formControlName="amount" [readonly]="!validSelection"
+            status="info" #amount autocomplete="off" (keydown.enter)="verifAmount()" [(ngModel)]="amountValue">
         </div>
         <div class="form-group">
           <label class="label">MULTIPLICATEUR</label>
@@ -20,8 +21,8 @@
         </div>
         <div class="form-group">
           <button nbButton matRipple status="primary" type="submit" (click)="onSubmitBet()" size="large" status="info" [style.width.%]="100"
-            [disabled]="validateSubmit()">
-            IMPRIMER
+            [disabled]="validateSubmit()" id="printer">
+            PLACER PARI
           </button>
         </div>
         <div class="form-group">

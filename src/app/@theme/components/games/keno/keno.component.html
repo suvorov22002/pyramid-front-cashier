@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-sm-4">
+        <nb-card size="medium">
+            <nb-card-body>
+                <div class="button-ma space">
+                    <p style="font-weight: bold;">Tirage</p>
+                    <p style="color: rgb(4, 46, 105);font-style: italic;">{{num_tirage}}</p>
+                    <p style="font-weight: bold;font-style: italic;">{{eventState}}</p>
+                    <p style="font-weight: bold;">{{event}}</p>
+                </div>
+                
+                <div class="button-ma space">
+                    <input type="text" nbInput id="selection" placeholder="Selection" #selection status="info" fullWidth
+                        maxlength="32" (keyup)="onKeySelectionEvent($event)" (keydown.enter)="validateSelection(selection)"
+                        [(ngModel)]="selectionChoice" [disabled]="!canbet" autocomplete="off">
+                </div>
+
+                <div class="button-ma space">
+                    <p style="font-weight: bold;">Selection</p>
+                    <p><span [ngClass]="classOfMessage()" id="message">{{message}}</span></p>
+                </div>
+
+                <div class="button-ma space">
+                    <button nbButton matRipple (click)="onCancelSelection(selection.value)" status="info"
+                       >
+                        <nb-icon class="action-icon" icon='undo'></nb-icon>Nouveau/Annuler
+                    </button>
+                </div>
+
+                <div class="space" title="Selection Aleatoire">
+                    <p style="font-weight: bold;">Selection Aleatoire</p>
+                    <div class="button-ma space">
+                        <button nbButton matRipple (click)="aleaSelection('simple')" status="info" size="small" [disabled]="!canbet">
+                            Jeu Simple
+                        </button>
+
+                        <button nbButton matRipple (click)="aleaSelection('nonout')" status="info" size="small" [disabled]="!canbet">
+                            Non Sortant
+                        </button>
+
+                        <button nbButton matRipple (click)="aleaSelection('allout')" status="info" size="small" [disabled]="!canbet">
+                            Tout Dedans
+                        </button>
+
+                        <input type="number" nbInput id="alea" #alea status="info" [(ngModel)]="selectionAlea"
+                            (keydown.enter)="generateSelection()" min="0" max="10" [disabled]="!canbet"
+                            oninput="validity.valid||(value='');" autocomplete="off">
+
+                    </div>
+
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-sm-5 box">
+        <nb-card size="medium">
+
+            <mat-table [dataSource]="dataSource">
+
+                <!-- Code numero evenement Column -->
+                <ng-container matColumnDef="event">
+                    <mat-header-cell *matHeaderCellDef> Tirage </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.event}} </mat-cell>
+                </ng-container>
+
+                <!-- Odd Column -->
+                <ng-container matColumnDef="pronostic">
+                    <mat-header-cell *matHeaderCellDef> Pronostic </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.pronostic}} </mat-cell>
+                </ng-container>
+
+                <!-- Game Column -->
+                <ng-container matColumnDef="jeu">
+                    <mat-header-cell *matHeaderCellDef> Type de pari </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.jeu}} </mat-cell>
+                </ng-container>
+
+                <!-- Selection Column -->
+                <ng-container matColumnDef="odd">
+                    <mat-header-cell *matHeaderCellDef> Cote </mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.odd}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+        </nb-card>
+    </div>
+    <div class="col-sm-3 box">
+        <ngx-checkin [resultMessage]="ticket"></ngx-checkin>
+    </div>
+    <button nbButton matRipple (click)="showDocumentation()" size="tiny">
+        Documentation
+    </button>
+</div>

@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-sm-6 barcode">
                                 <!--    <label for="barcode" class="label">Code Barre</label> -->
-                                <input type="text" nbInput fullWidth id="barcode" placeholder="Code Barre" #barcode
+                                <input type="text" nbInput fullWidth id="barcode" placeholder="Code Barre" #barcode [cdkTrapFocusAutoCapture]="show" [cdkTrapFocus]="show"
                                     status="info" (keyup)="onKeyBarcodeEvent($event)" (keydown.enter)="searchBarcode($event)">
 
                                 <input type="text" nbInput readonly fullWidth id="totalmise" placeholder="Mise Totale" [(ngModel)]="miseTotale"
@@ -77,19 +77,19 @@
                                 <!-- Code numero evenement Column -->
                                 <ng-container matColumnDef="event">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> No </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.event}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.numeroTirage}} </mat-cell>
                                 </ng-container>
 
                                 <!-- Odd Column -->
                                 <ng-container matColumnDef="odd">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Cote </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.odd}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.odds}} </mat-cell>
                                 </ng-container>
 
                                 <!-- Game Column -->
                                 <ng-container matColumnDef="game">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Jeu </mat-header-cell>
-                                    <mat-cell *matCellDef="let row"> {{row.game}} </mat-cell>
+                                    <mat-cell *matCellDef="let row"> {{codeGame}} </mat-cell>
                                 </ng-container>
 
                                 <!-- Selection Column -->
@@ -107,7 +107,7 @@
                                 <!-- Prix Column -->
                                 <ng-container matColumnDef="prix">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Prix </mat-header-cell>
-                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.prix}} </mat-cell>
+                                    <mat-cell *matCellDef="let row" [ngClass]="getClassOf(row.status)"> {{row.montantSelection}} </mat-cell>
                                 </ng-container>
 
                                 <!-- Coefficient Column -->

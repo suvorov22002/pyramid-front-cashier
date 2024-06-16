@@ -53,6 +53,11 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { ShiftComponent } from './components/shift/shift.component';
 import { MaterialModule } from './shared/material.module';
 import { DialogShiftComponent } from './components/shift/dialog-shift/dialog-shift.component';
+import { KenoComponent } from './components/games/keno/keno.component';
+import { DocumentationKenoComponent } from './components/games/keno/documentation-keno/documentation-keno.component';
+import { A11yModule } from '@angular/cdk/a11y';
+import { DialogSlipComponent } from './components/checkin/dialog-slip/dialog-slip.component';
+import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -79,7 +84,9 @@ const NB_MODULES = [
   NbIconModule,
   FormsModule,
   ReactiveFormsModule,
-  NgxPrintModule
+  NgxPrintModule,
+  A11yModule,
+  NgxBarcodeModule,
 ];
 const COMPONENTS = [
   SwitcherComponent,
@@ -93,7 +100,9 @@ const COMPONENTS = [
   CheckinComponent, 
   PaymentComponent, 
   ShiftComponent,
-  DialogShiftComponent
+  DialogShiftComponent,
+  KenoComponent,
+  DocumentationKenoComponent
 ];
 const PIPES = [
   CapitalizePipe,
@@ -106,7 +115,7 @@ const PIPES = [
 @NgModule({
   imports: [CommonModule, MaterialModule, ...NB_MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES, DialogSlipComponent],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {
